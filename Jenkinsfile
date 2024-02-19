@@ -6,7 +6,7 @@ pipeline {
         stage('1-string') {
             steps {
                 sh '''
-                    /var/lib/jenkins/tmp/print-first-line.sh
+                    /var/lib/jenkins/scripts/print-first-line.sh
                     cat output.sql-1
                 '''
             }
@@ -14,7 +14,7 @@ pipeline {
         stage('All-RNK-spints') {
             steps {
                 sh '''
-                    /var/lib/jenkins/tmp/all-rnk-splints.sh
+                    /var/lib/jenkins/scripts/all-rnk-splints.sh
                     cat output.sql-2
                 '''
             }

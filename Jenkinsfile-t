@@ -1,0 +1,17 @@
+/* groovylint-disable-next-line CompileStatic */
+pipeline {
+    agent any
+
+    stages {
+        stage('1-string') {
+            steps {
+                echo "exemple-1"
+            }
+        }
+        stage('All-RNK-spints') {
+            steps {
+                echo "exemple-1"
+            }
+        }
+    }
+}

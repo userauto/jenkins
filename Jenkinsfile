@@ -4,9 +4,9 @@ pipeline {
     stages{
         stage('Github pull'){
             steps {
-                sh '''
-                    cd /var/lib/jenkins/github/jenkins
-                    git pull git@github.com:userauto/jenkins.git
+                sh ''' 
+                    rm -rf jenkins /var/lib/jenkins/github
+                    git clone git@github.com:userauto/jenkins.git /var/lib/jenkins/github
                 '''
             }
         }

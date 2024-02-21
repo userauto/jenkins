@@ -6,7 +6,7 @@ pipeline {
             steps {
                 sh '''
                     cd /var/lib/jenkins/github
-                    git clone git@github.com:userauto/jenkins.git
+                    git pull git@github.com:userauto/jenkins.git
                 '''
             }
         }

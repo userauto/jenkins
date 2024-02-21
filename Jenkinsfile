@@ -1,8 +1,8 @@
 pipeline {
     agent any
-
+    
     stages{
-        stage('Github pull') {
+        stage('Github clone') {
             steps {
                 sh '''
                     rm -rf jenkins /var/lib/jenkins/github

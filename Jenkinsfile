@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     stages{
         stage('Github clone') {
             steps {
@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh '''
                     /* groovylint-disable-next-line LineLength */
-                    docker run --name nginx --rm -d -p 9889:80 -v /var/lib/jenkins/github/site:/var/www/html nginx:latest
+                    docker run --name nginx --rm -u root -d -p 9889:80 -v /var/lib/jenkins/github/site:/var/www/html nginx:latest
                 '''
             }
         }

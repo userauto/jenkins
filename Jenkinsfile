@@ -13,11 +13,12 @@ pipeline {
             }
         }
         stage('Run docker Nginx') {
-            steps {
-                sh '''
-                    /* groovylint-disable-next-line LineLength */
-                    docker run --name nginx --rm -u root -d -p 9889:80 -v /var/lib/jenkins/github/site:/var/www/html nginx:latest
-                '''
+            agent {
+                 docker {
+                    image 'nginx:latest'
+                    args '/var/lib/jenkins/github/site:/var/www/html'
+                    args '-p 9889:80'
+                }
             }
         }
         stage('Check code reply HTTP') {

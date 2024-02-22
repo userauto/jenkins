@@ -1,7 +1,8 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
 
-    stages{
+    stages {
         stage('Github clone') {
             steps {
                 sh '''
@@ -13,23 +14,37 @@ pipeline {
             }
         }
         stage('Run docker Nginx') {
-            agent {
-                 docker {
-                    image 'nginx:latest'
-                    args '/var/lib/jenkins/github/site:/var/www/html'
-                    args '-p 9889:80'
-                }
-            }
             steps {
-                sh docker run nginx
+                sh 'docker run --name nginx --rm -d -p 9889:80 -v /var/lib/jenkins/github/site:/usr/share/nginx/html nginx:latest'
             }
         }
         stage('Check code reply HTTP') {
             steps {
+                sh 'sleep 10'
+                sh 'curl -s -o /dev/null -w "%{http_code}" http://158.160.67.74:9889/'
+            }
+        }
+        stage('Check md5') {
+            steps {
                 sh '''
-                    curl -I http://158.160.67.74:9889/ 2>/dev/null | head -n 1 | cut -d$' ' -f2
+                    echo "Hash sum file index.html"
+                    md5sum /var/lib/jenkins/github/site/index.html | awk '{print$1}'
+                    echo "Hash sum reply HTTP"
+                    curl http://158.160.67.74:9889/ 2> /dev/null | md5sum | awk '{print$1}'
                 '''
             }
+        }
+        stage('Stop docker nginx') {
+            steps {
+                sh 'docker stop nginx'
+            }
+        }  
+    }
+    post{
+        always{
+        mail to: "aleksey.potapov@bk.ru",
+        subject: "Test Email",
+        body: "Test"
         }
     } 
 }

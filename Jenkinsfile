@@ -20,6 +20,9 @@ pipeline {
                     args '-p 9889:80'
                 }
             }
+            steps {
+                sh docker run nginx
+            }
         }
         stage('Check code reply HTTP') {
             steps {

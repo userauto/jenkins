@@ -1,2 +1,2 @@
 # jenkins
-testing-jenkins
+SMC on github

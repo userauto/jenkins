@@ -3,16 +3,11 @@ pipeline {
     agent any
 
     stages {
-        /*stage('Github clone') {
+        stage('Github clone') {
             steps {
-                sh '''
-                    rm -rf jenkins /var/lib/jenkins/github
-                    git clone git@github.com:userauto/jenkins.git /var/lib/jenkins/github
-                    cd /var/lib/jenkins/github
-                    pwd
-                '''
+                sh 'Repository has cloned'
             }
-        }*/
+        }
         stage('Run docker Nginx') {
             steps {
                 /* groovylint-disable-next-line LineLength */

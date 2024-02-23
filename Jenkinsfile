@@ -15,6 +15,7 @@ pipeline {
         }
         stage('Run docker Nginx') {
             steps {
+                /* groovylint-disable-next-line LineLength */
                 sh 'docker run --name nginx --rm -d -p 9889:80 -v /var/lib/jenkins/github/site:/usr/share/nginx/html nginx:latest'
             }
         }
@@ -38,13 +39,13 @@ pipeline {
             steps {
                 sh 'docker stop nginx'
             }
-        }  
-    }
-    post{
-        always{
-        mail to: "aleksey.potapov@bk.ru",
-        subject: "Test Email",
-        body: "Test"
         }
-    } 
+    }
+    post {
+        always {
+            mail to: 'aleksey.potapov@bk.ru',
+            subject: 'Test Email',
+            body: 'Test'
+        }
+    }
 }

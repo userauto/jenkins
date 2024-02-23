@@ -36,11 +36,12 @@ pipeline {
             }
         }
     }
-    /*post {
-        always {
-            mail to: 'aleksey.potapov@bk.ru',
-            subject: 'Test Email',
-            body: 'Test'
+    post {
+        success {
+            sh 'curl -X POST -H "Content-Type: application/json" -d \'{"chat_id": "884174870", "text": "[SUCCSESS] build success!", "disable_notification": false}\' https://api.telegram.org/bot7094254109:AAF1KYBKvInh252FPJAaq0gG3EeH1qmnUFI/sendMessage'
         }
-    }*/
+        failure {
+            sh 'curl -X POST -H "Content-Type: application/json" -d \'{"chat_id": "884174870", "text": "[💀FAILED] Ukata api build failed!", "disable_notification": false}\' https://api.telegram.org/bot7094254109:AAF1KYBKvInh252FPJAaq0gG3EeH1qmnUFI/sendMessage'
+        }
+    }
 }

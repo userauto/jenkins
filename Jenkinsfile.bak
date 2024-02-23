@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     stages {
-        /*stage('Github clone') {
+        stage('Github clone') {
             steps {
                 sh '''
                     rm -rf jenkins /var/lib/jenkins/github
@@ -12,11 +12,11 @@ pipeline {
                     pwd
                 '''
             }
-        }*/
+        }
         stage('Run docker Nginx') {
             steps {
                 /* groovylint-disable-next-line LineLength */
-                sh 'docker run --name nginx --rm -d -p 9889:80 -v ./site:/usr/share/nginx/html nginx:latest'
+                sh 'docker run --name nginx --rm -d -p 9889:80 -v /var/lib/jenkins/github/site:/usr/share/nginx/html nginx:latest'
             }
         }
         stage('Check code reply HTTP') {
@@ -41,11 +41,11 @@ pipeline {
             }
         }
     }
-    /*post {
+    post {
         always {
             mail to: 'aleksey.potapov@bk.ru',
             subject: 'Test Email',
             body: 'Test'
         }
-    }*/
+    }
 }

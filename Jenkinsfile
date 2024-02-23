@@ -5,7 +5,7 @@ pipeline {
     stages {
         stage('Github clone') {
             steps {
-                sh 'Repository has cloned'
+                sh 'echo "Repository has cloned"'
             }
         }
         stage('Run docker Nginx') {
